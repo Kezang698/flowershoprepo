@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
+
+// schema.prisma
+
+model Flower {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(100)
+  price     Float
+  imageUrl  String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relation to orders (optional)
+  orders    Order[]
+}
+
+// If you need to track orders separately
+model Order {
+  id        Int      @id @default(autoincrement())
+  flower    Flower   @relation(fields: [flowerId], references: [id])
+  flowerId  Int
+  userEmail String   @db.VarChar(100)
+  quantity  Int      @default(1)
+  total     Float
+  date      DateTime @default(now())
+  // Add any other order-related fields
+}
