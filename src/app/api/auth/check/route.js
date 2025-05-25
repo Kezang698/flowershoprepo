@@ -1,17 +1,28 @@
 import { PrismaClient } from '@prisma/client';
 import { cookies } from 'next/headers';
 
-const prisma = new PrismaClient();
+// PrismaClient is attached to the `global` object in development to prevent
+// exhausting your database connection limit.
+const globalForPrisma = global;
+
+const prisma = globalForPrisma.prisma || new PrismaClient();
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
 export async function GET() {
   try {
-    const cookieStore = await cookies();
+    const cookieStore = cookies();
     const userId = cookieStore.get('userId')?.value;
 
     if (!userId) {
       return new Response(
         JSON.stringify({ user: null }),
-        { status: 200 }
+        { 
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
       );
     }
 
@@ -26,7 +37,12 @@ export async function GET() {
             name: 'Admin User'
           }
         }),
-        { status: 200 }
+        { 
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
       );
     }
 
@@ -43,19 +59,42 @@ export async function GET() {
     if (!user) {
       return new Response(
         JSON.stringify({ user: null }),
-        { status: 200 }
+        { 
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
       );
     }
 
     return new Response(
       JSON.stringify({ user }),
-      { status: 200 }
+      { 
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
     );
   } catch (error) {
     console.error('Auth check error:', error);
     return new Response(
-      JSON.stringify({ error: 'Internal server error' }),
-      { status: 500 }
+      JSON.stringify({ 
+        error: 'Internal server error',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined 
+      }),
+      { 
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
     );
+  } finally {
+    // Ensure Prisma Client is properly closed in production
+    if (process.env.NODE_ENV === 'production') {
+      await prisma.$disconnect();
+    }
   }
 } 
