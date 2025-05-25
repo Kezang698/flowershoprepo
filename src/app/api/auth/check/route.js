@@ -1,14 +1,16 @@
+// Ensure Vercel uses Node.js runtime (not Edge)
+export const runtime = 'nodejs';
+
 import { cookies } from 'next/headers';
+import { PrismaClient } from '@prisma/client';
 
-// Lazy load PrismaClient
-let prisma;
+// Prevent multiple instances of PrismaClient in development
+const globalForPrisma = globalThis;
 
-function getPrismaClient() {
-  if (!prisma) {
-    const { PrismaClient } = require('@prisma/client');
-    prisma = new PrismaClient();
-  }
-  return prisma;
+const prisma = globalForPrisma.prisma ?? new PrismaClient();
+
+if (process.env.NODE_ENV !== 'production') {
+  globalForPrisma.prisma = prisma;
 }
 
 export async function GET() {
@@ -32,8 +34,7 @@ export async function GET() {
       });
     }
 
-    const prismaClient = getPrismaClient();
-    const user = await prismaClient.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: { id: userId },
       select: {
         id: true,
@@ -48,14 +49,15 @@ export async function GET() {
     }
 
     return Response.json({ user });
+
   } catch (error) {
     console.error('Auth check error:', error);
     return Response.json(
-      { 
+      {
         error: 'Internal server error',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined 
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined,
       },
       { status: 500 }
     );
   }
-} 
+}
