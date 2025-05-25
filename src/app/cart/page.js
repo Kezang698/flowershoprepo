@@ -100,8 +100,7 @@ export default function Cart() {
       showNotification('Your cart is empty', 'error');
       return;
     }
-    // Implement checkout logic here
-    showNotification('Proceeding to checkout...');
+    router.push('/checkout');
   };
 
   const handleProductClick = (productId) => {
@@ -166,9 +165,9 @@ export default function Cart() {
                   >
                     <h3>{item.name}</h3>
                     <div className="price">
-                      ${item.price.toFixed(2)}
+                      Nu. {item.price.toFixed(2)}
                       {item.originalPrice && (
-                        <span>${item.originalPrice.toFixed(2)}</span>
+                        <span>Nu. {item.originalPrice.toFixed(2)}</span>
                       )}
                     </div>
                     {item.originalPrice && (
@@ -208,7 +207,7 @@ export default function Cart() {
                     </button>
                   </div>
                   <div className="item-total">
-                    ${(item.price * item.quantity).toFixed(2)}
+                    Nu. {(item.price * item.quantity).toFixed(2)}
                   </div>
                   <button
                     className="remove-btn"
@@ -268,7 +267,7 @@ export default function Cart() {
                       checked={shippingMethod === 'express'}
                       onChange={() => setShippingMethod('express')}
                     />
-                    <span>Express Shipping (2-3 days) - $10.00</span>
+                    <span>Express Shipping (2-3 days) - Nu. 10.00</span>
                   </label>
                 </div>
               </div>
@@ -276,21 +275,21 @@ export default function Cart() {
               <div className="summary-details">
                 <div className="summary-item">
                   <span>Subtotal</span>
-                  <span>${calculateSubtotal().toFixed(2)}</span>
+                  <span>Nu. {calculateSubtotal().toFixed(2)}</span>
                 </div>
                 {discount > 0 && (
                   <div className="summary-item discount">
                     <span>Discount</span>
-                    <span>-${discount.toFixed(2)}</span>
+                    <span>-Nu. {discount.toFixed(2)}</span>
                   </div>
                 )}
                 <div className="summary-item">
                   <span>Shipping</span>
-                  <span>${calculateShipping().toFixed(2)}</span>
+                  <span>Nu. {calculateShipping().toFixed(2)}</span>
                 </div>
                 <div className="summary-item total">
                   <span>Total</span>
-                  <span>${calculateTotal().toFixed(2)}</span>
+                  <span>Nu. {calculateTotal().toFixed(2)}</span>
                 </div>
               </div>
 

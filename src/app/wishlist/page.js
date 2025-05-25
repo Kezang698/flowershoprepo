@@ -9,15 +9,15 @@ export default function Wishlist() {
   const [wishlistItems, setWishlistItems] = useState([]);
   const router = useRouter();
   const [products] = useState([
-    { id: 1, name: 'Lilies', price: 12.99, originalPrice: 15, discount: 10, image: '/flower1.jpg' },
-    { id: 2, name: 'Rose', price: 12.99, originalPrice: 15, discount: 15, image: '/flower2.jpg' },
-    { id: 3, name: 'Sunny', price: 12.99, originalPrice: 15, discount: 15, image: '/flower3.jpg' },
-    { id: 4, name: 'Jasmine', price: 12.99, originalPrice: 15, discount: 10, image: '/flower4.jpg' },
-    { id: 5, name: 'Benjamine', price: 12.99, originalPrice: 15, discount: 20, image: '/flower5.jpg' },
-    { id: 6, name: 'Rebilin', price: 12.99, originalPrice: 15, discount: 5, image: '/flower6.jpg' },
-    { id: 7, name: 'CherryB', price: 12.99, originalPrice: 15, discount: 12, image: '/flower7.jpg' },
-    { id: 8, name: 'Japens', price: 12.99, originalPrice: 15, discount: 10, image: '/flower8.jpg' },
-    { id: 9, name: 'Bluber', price: 12.99, originalPrice: 15, discount: 18, image: '/flower9.jpg' },
+    { id: 1, name: 'Lilies', price: 1080.00, originalPrice: 1247.25, discount: 10, image: '/flower1.jpg' },
+    { id: 2, name: 'Rose', price: 1080.00, originalPrice: 1247.25, discount: 15, image: '/flower2.jpg' },
+    { id: 3, name: 'Sunny', price: 1080.00, originalPrice: 1247.25, discount: 15, image: '/flower3.jpg' },
+    { id: 4, name: 'Jasmine', price: 1080.00, originalPrice: 1247.25, discount: 10, image: '/flower4.jpg' },
+    { id: 5, name: 'Benjamine', price: 1080.00, originalPrice: 1247.25, discount: 20, image: '/flower5.jpg' },
+    { id: 6, name: 'Rebilin', price: 1080.00, originalPrice: 1247.25, discount: 5, image: '/flower6.jpg' },
+    { id: 7, name: 'CherryB', price: 1080.00, originalPrice: 1247.25, discount: 12, image: '/flower7.jpg' },
+    { id: 8, name: 'Japens', price: 1080.00, originalPrice: 1247.25, discount: 10, image: '/flower8.jpg' },
+    { id: 9, name: 'Bluber', price: 1080.00, originalPrice: 1247.25, discount: 18, image: '/flower9.jpg' },
   ]);
 
   useEffect(() => {
@@ -82,7 +82,7 @@ export default function Wishlist() {
                 <div className="item-details">
                   <h3>{item.name}</h3>
                   <div className="price">
-                    ${item.price} <span>${item.originalPrice}</span>
+                    Nu. {item.price} <span>Nu. {item.originalPrice}</span>
                   </div>
                   <div className="discount">-{item.discount}%</div>
                 </div>

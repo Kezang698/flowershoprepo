@@ -31,10 +31,31 @@ const ReviewSection = () => {
     // Add more reviews...
   ];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Review submitted:', { ...reviewForm, rating });
-    // Implement review submission logic here
+    try {
+      const response = await fetch('/api/review', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: reviewForm.name,
+          email: reviewForm.email,
+          review: reviewForm.review,
+          rating,
+          photos: [] // Add photo upload logic if needed
+        }),
+      });
+      if (response.ok) {
+        alert('Thank you for your review!');
+        setReviewForm({ name: '', email: '', review: '' });
+        setRating(0);
+      } else {
+        alert('Failed to submit review.');
+      }
+    } catch (error) {
+      alert('An error occurred.');
+      console.error(error);
+    }
   };
 
   return (

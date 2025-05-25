@@ -24,8 +24,9 @@ export default function LearnMore() {
           <div className="feature-grid">
             <div className="feature-card">
               <div className="feature-icon">
-                <i className="fas fa-flower"></i>
-                <i className="fas fa-leaf"></i>
+                <img src="fresh.jpg" alt="Fresh Quality Flowers" className="feature-icon-img" />
+                {/* <i className="fas fa-flower"></i>
+                <i className="fas fa-leaf"></i> */}
               </div>
               <h3>Fresh & Quality</h3>
               <p>We source our flowers from the finest local and international growers, ensuring the highest quality and freshness for every arrangement.</p>
@@ -33,7 +34,7 @@ export default function LearnMore() {
 
             <div className="feature-card">
               <div className="feature-icon">
-                <i className="fas fa-truck"></i>
+                <img src="/deliver.jpg" alt="Fast Delivery" className="feature-icon-img" />
               </div>
               <h3>Fast Delivery</h3>
               <p>Our efficient delivery system ensures your flowers arrive fresh and on time, with careful handling throughout the journey.</p>
@@ -41,15 +42,7 @@ export default function LearnMore() {
 
             <div className="feature-card">
               <div className="feature-icon">
-                <i className="fas fa-medal"></i>
-              </div>
-              <h3>Expert Design</h3>
-              <p>Our skilled florists create stunning arrangements with attention to detail, color harmony, and artistic composition.</p>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon">
-                <i className="fas fa-heart"></i>
+                <img src="/care.jpg" alt="Customer Care" className="feature-icon-img" />
               </div>
               <h3>Customer Care</h3>
               <p>We're dedicated to providing exceptional service, with a team ready to assist you with any special requests or concerns.</p>
@@ -64,10 +57,6 @@ export default function LearnMore() {
             <div className="stat-item">
               <h2>5000+</h2>
               <p>Happy Customers</p>
-            </div>
-            <div className="stat-item">
-              <h2>1000+</h2>
-              <p>Flower Varieties</p>
             </div>
             <div className="stat-item">
               <h2>24/7</h2>
@@ -87,7 +76,7 @@ export default function LearnMore() {
                 <div className="testimonial-author">
                   <img src="/cus1.jpg" alt="Customer" />
                   <div>
-                    <h4>Sarah Johnson</h4>
+                    <h4>Tenzin Chophel</h4>
                     <span>Regular Customer</span>
                   </div>
                 </div>
@@ -99,7 +88,7 @@ export default function LearnMore() {
                 <div className="testimonial-author">
                   <img src="/cus2.jpg" alt="Customer" />
                   <div>
-                    <h4>Michael Chen</h4>
+                    <h4>Sonam Dechen Yangzom</h4>
                     <span>Happy Customer</span>
                   </div>
                 </div>
@@ -116,7 +105,7 @@ export default function LearnMore() {
                 <p>Our commitment to quality, creativity, and customer satisfaction has remained unchanged throughout our journey. We believe that every flower tells a story, and we're here to help you tell yours.</p>
               </div>
               <div className="story-image">
-                <img src="/flower1.jpg" alt="Our Story" />
+                <img src="/story.jpg" alt="Our Story" />
               </div>
             </div>
           </div>

@@ -1,5 +1,6 @@
 "use client";  // Add this line to mark this file as a client component
 import Head from 'next/head'
+import Header from '../components/Header';
 import { useEffect, useState } from 'react'
 
 import { RiHeartAddFill } from "react-icons/ri";
@@ -9,16 +10,18 @@ export default function Home() {
   const [wishlist, setWishlist] = useState([]);
   const [cart, setCart] = useState([]);
   const [products] = useState([
-    { id: 1, name: 'Lilies', price: 12.99, originalPrice: 15, discount: 10, image: '/flower1.jpg' },
-    { id: 2, name: 'Rose', price: 12.99, originalPrice: 15, discount: 15, image: '/flower2.jpg' },
-    { id: 3, name: 'Sunny', price: 12.99, originalPrice: 15, discount: 15, image: '/flower3.jpg' },
-    { id: 4, name: 'Jasmine', price: 12.99, originalPrice: 15, discount: 10, image: '/flower4.jpg' },
-    { id: 5, name: 'Benjamine', price: 12.99, originalPrice: 15, discount: 20, image: '/flower5.jpg' },
-    { id: 6, name: 'Rebilin', price: 12.99, originalPrice: 15, discount: 5, image: '/flower6.jpg' },
-    { id: 7, name: 'CherryB', price: 12.99, originalPrice: 15, discount: 12, image: '/flower7.jpg' },
-    { id: 8, name: 'Japens', price: 12.99, originalPrice: 15, discount: 10, image: '/flower8.jpg' },
-    { id: 9, name: 'Bluber', price: 12.99, originalPrice: 15, discount: 18, image: '/flower9.jpg' },
+    { id: 1, name: 'Lilies', price: 1080.00, originalPrice: 1247.25, discount: 10, image: '/flower1.jpg' },
+    { id: 2, name: 'Rose', price: 1080.00, originalPrice: 1247.25, discount: 15, image: '/flower2.jpg' },
+    { id: 3, name: 'Sunny', price: 1080.00, originalPrice: 1247.25, discount: 15, image: '/flower3.jpg' },
+    { id: 4, name: 'Jasmine', price: 1080.00, originalPrice: 1247.25, discount: 10, image: '/flower4.jpg' },
+    { id: 5, name: 'Benjamine', price: 1080.00, originalPrice: 1247.25, discount: 20, image: '/flower5.jpg' },
+    { id: 6, name: 'Rebilin', price: 1080.00, originalPrice: 1247.25, discount: 5, image: '/flower6.jpg' },
+    { id: 7, name: 'CherryB', price: 1080.00, originalPrice: 1247.25, discount: 12, image: '/flower7.jpg' },
+    { id: 8, name: 'Japens', price: 1080.00, originalPrice: 1247.25, discount: 10, image: '/flower8.jpg' },
+    { id: 9, name: 'Bluber', price: 1080.00, originalPrice: 1247.25, discount: 18, image: '/flower9.jpg' },
   ]);
+
+  const [user, setUser] = useState(null);
 
   // Load wishlist and cart from localStorage on component mount
   useEffect(() => {
@@ -33,6 +36,12 @@ export default function Home() {
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [wishlist, cart]);
+
+  useEffect(() => {
+    fetch('/api/user')
+      .then(res => res.json())
+      .then(data => setUser(data.user));
+  }, []);
 
   // Toggle wishlist item
   const toggleWishlist = (productId) => {
@@ -79,6 +88,7 @@ export default function Home() {
 
   return (
     <>
+      <Header products={products} />
     
         <title>Blossom Haven - Flower Boutique</title>
         <meta charSet="UTF-8" />
@@ -90,69 +100,9 @@ export default function Home() {
           rel="stylesheet"
         />
 
-        {/* Font Awesome CDN */}
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        />
-
         {/* Your global CSS */}
         <link rel="stylesheet" href="/global.css" />
-     
 
-      {/* <header>
-        <input type="checkbox" id="toggler" />
-        <label htmlFor="toggler" className="fas fa-bars"></label>
-        <a href="#" className="logo">Flower<span>.</span></a>
-
-        <nav className="navbar">
-          <a href="#Home">Home</a>
-          <a href="#About">About</a>
-          <a href="#Products">Products</a>
-          <a href="#Review">Review</a>
-          <a href="#Contact">Contact</a>
-        </nav>
-
-        <div className="icons">
-          <a href="wishlist.html"> 
-            <RiHeartAddFill className="" />
-          </a>
-          <a href="cart.html">
-            <i className="fas fa-shopping-cart"></i>
-          </a>
-
-          <div className="user-dropdown">
-            <i
-              className="fas fa-user dropdown-toggle"
-              onClick={toggleUserMenu}
-            ></i>
-            <ul className="dropdown-menu-user" id="userMenu">
-              <li><i className="fas fa-sign-in-alt"></i> Login / Register</li>
-              <li><i className="fas fa-user-circle"></i> My Account</li>
-              <li><i className="fas fa-box"></i> My Orders</li>
-              <li><i className="fas fa-headset"></i> Contact Us</li>
-              <li><i className="fas fa-question-circle"></i> FAQs</li>
-            </ul>
-          </div>
-        </div>
-
-        <form id="flowerSearchForm" className="search-bar" onSubmit={e => e.preventDefault()}>
-          <input type="text" id="flowerSearchInput" placeholder="Search flowers..." />
-          <button type="submit"><i className="fas fa-search"></i></button>
-        </form>
-
-        <div className="location-selector">
-          <i className="fas fa-map-marker-alt"> Delivery </i>
-          <select>
-            <option value="thimphu">Thimphu</option>
-            <option value="paro">Paro</option>
-            <option value="phuntsholing">Phuntsholing</option>
-          </select>
-        </div>
-      </header> */}
 
       {/* Home Section */}
       <section className="Home" id="Home">
@@ -244,7 +194,7 @@ export default function Home() {
               </div>
               <div className="content">
                 <h3>{product.name}</h3>
-                <div className="price">${product.price} <span>${product.originalPrice}</span></div>
+                <div className="price">Nu. {product.price} <span>Nu. {product.originalPrice}</span></div>
               </div>
             </div>
           ))}
@@ -271,10 +221,10 @@ export default function Home() {
                 <div className="bar-container">
                   <div 
                     className="bar" 
-                    style={{ width: `${[80, 15, 3, 1, 1][rating-1]}%` }}
+                    style={{ width: `${[80, 10, 5, 3, 2][5-rating]}%` }}
                   ></div>
                 </div>
-                <span>{[80, 15, 3, 1, 1][rating-1]}%</span>
+                <span>{[80, 10, 5, 3, 2][5-rating]}%</span>
               </div>
             ))}
           </div>
@@ -498,141 +448,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="footer">
-        <div className="footer-container">
-          <div className="footer-section">
-            <h3>Contact Us</h3>
-            <ul className="contact-list">
-              <li>
-                <i className="fas fa-map-marker-alt"></i>
-                <div>
-                  <strong>Address:</strong>
-                  <p>123 Flower Street, Blossom City, Thimphu, Bhutan</p>
-                </div>
-              </li>
-              <li>
-                <i className="fas fa-phone-alt"></i>
-                <div>
-                  <strong>Phone:</strong>
-                  <p>+975 1234 5678</p>
-                  <p>+975 9876 5432</p>
-                </div>
-              </li>
-              <li>
-                <i className="fas fa-envelope"></i>
-                <div>
-                  <strong>Email:</strong>
-                  <p>info@blossomshop.com</p>
-                  <p>support@blossomshop.com</p>
-                </div>
-              </li>
-              <li>
-                <i className="fas fa-clock"></i>
-                <div>
-                  <strong>Opening Hours:</strong>
-                  <p>Mon - Sat: 9:00 AM - 8:00 PM</p>
-                  <p>Sunday: 10:00 AM - 6:00 PM</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <div className="footer-section">
-            <h3>Quick Links</h3>
-            <ul className="quick-links">
-              <li><a href="#Home">Home</a></li>
-              <li><a href="#About">About Us</a></li>
-              <li><a href="#Products">Products</a></li>
-              <li><a href="#Review">Reviews</a></li>
-              <li><a href="#Contact">Contact</a></li>
-              <li><a href="/blog">Blog</a></li>
-              <li><a href="/faq">FAQs</a></li>
-              <li><a href="/terms">Terms & Conditions</a></li>
-            </ul>
-          </div>
-
-          <div className="footer-section">
-            <h3>Newsletter</h3>
-            <p className="newsletter-text">Subscribe to our newsletter for the latest updates and offers!</p>
-            <form className="newsletter-form" onSubmit={(e) => {
-              e.preventDefault();
-              // Add newsletter subscription logic here
-              alert('Thank you for subscribing to our newsletter!');
-            }}>
-              <div className="input-group">
-                <input type="email" placeholder="Enter your email" required />
-                <button type="submit">
-                  <i className="fas fa-paper-plane"></i>
-                </button>
-              </div>
-            </form>
-            <div className="social-links">
-              <h4>Follow Us</h4>
-              <div className="social-icons">
-                <a href="#" className="social-icon facebook" aria-label="Facebook">
-                  <i className="fa-brands fa-facebook-f"></i>
-                  <span className="tooltip">Facebook</span>
-                </a>
-                <a href="#" className="social-icon instagram" aria-label="Instagram">
-                  <i className="fa-brands fa-instagram"></i>
-                  <span className="tooltip">Instagram</span>
-                </a>
-                <a href="#" className="social-icon twitter" aria-label="Twitter">
-                  <i className="fa-brands fa-x-twitter"></i>
-                  <span className="tooltip">Twitter</span>
-                </a>
-                <a href="#" className="social-icon pinterest" aria-label="Pinterest">
-                  <i className="fa-brands fa-pinterest-p"></i>
-                  <span className="tooltip">Pinterest</span>
-                </a>
-                <a href="#" className="social-icon youtube" aria-label="YouTube">
-                  <i className="fa-brands fa-youtube"></i>
-                  <span className="tooltip">YouTube</span>
-                </a>
-                <a href="#" className="social-icon tiktok" aria-label="TikTok">
-                  <i className="fa-brands fa-tiktok"></i>
-                  <span className="tooltip">TikTok</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="footer-section">
-            <h3>Payment Methods</h3>
-            <div className="payment-methods">
-              <i className="fab fa-cc-visa"></i>
-              <i className="fab fa-cc-mastercard"></i>
-              <i className="fab fa-cc-paypal"></i>
-              <i className="fab fa-cc-apple-pay"></i>
-            </div>
-            <div className="app-download">
-              <h4>Download Our App</h4>
-              <div className="app-buttons">
-                <a href="#" className="app-button">
-                  <i className="fab fa-google-play"></i>
-                  <span>Google Play</span>
-                </a>
-                <a href="#" className="app-button">
-                  <i className="fab fa-apple"></i>
-                  <span>App Store</span>
-                </a>
-              </div>
-            </div>
-          </div>
+      {user ? (
+        <div>
+          <h2>Hello, {user.name}!</h2>
+          <p>Email: {user.email}</p>
         </div>
-
-        <div className="footer-bottom">
-          <div className="footer-bottom-content">
-            <p>&copy; 2024 Blossom Shop. All Rights Reserved.</p>
-            <div className="footer-bottom-links">
-              <a href="/privacy">Privacy Policy</a>
-              <a href="/terms">Terms of Service</a>
-              <a href="/sitemap">Sitemap</a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      ) : (
+        <p>Please log in to see your info.</p>
+      )}
     </>
   )
 }

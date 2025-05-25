@@ -18,14 +18,14 @@ export default function AdminDashboard() {
   useEffect(() => {
     // Simulate fetching flowers
     setFlowers([
-      { id: 1, name: 'Rose Bouquet', price: 29.99, image: '/rose.jpg' },
-      { id: 2, name: 'Tulip Arrangement', price: 24.99, image: '/tulip.jpg' }
+      { id: 1, name: 'Rose Bouquet', price: 2493.58, image: '/rose.jpg' },
+      { id: 2, name: 'Tulip Arrangement', price: 2077.91, image: '/tulip.jpg' }
     ]);
 
     // Simulate fetching orders
     setOrders([
-      { id: 1, user: 'user1@example.com', flower: 'Rose Bouquet', quantity: 2, total: 59.98, date: '2023-05-15' },
-      { id: 2, user: 'user2@example.com', flower: 'Tulip Arrangement', quantity: 1, total: 24.99, date: '2023-05-16' }
+      { id: 1, user: 'user1@example.com', flower: 'Rose Bouquet', quantity: 2, total: 4987.16, date: '2023-05-15' },
+      { id: 2, user: 'user2@example.com', flower: 'Tulip Arrangement', quantity: 1, total: 2077.91, date: '2023-05-16' }
     ]);
   }, []);
 
@@ -49,48 +49,37 @@ export default function AdminDashboard() {
     }
   };
 
-const handleAddFlower = async (e) => {
-  e.preventDefault();
+  const handleAddFlower = async (e) => {
+    e.preventDefault();
   
-  // Validate form inputs
-  if (!formData.name || !formData.price || !formData.image) {
-    alert('Please fill all fields');
-    return;
-  }
-
-  try {
-    // 1. Upload image to storage service
-    const imageUrl = await uploadImage(formData.image);
-    
-    // 2. Create flower record in database
-    const response = await fetch('/api/flowers', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: formData.name,
-        price: parseFloat(formData.price),
-        imageUrl: imageUrl
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to create flower');
+    if (!formData.name || !formData.price || !formData.image) {
+      alert('Please fill all fields');
+      return;
     }
-
-    const newFlower = await response.json();
-
-    // 3. Update UI state
-    setFlowers([...flowers, newFlower]);
-    setFormData({ name: '', price: '', image: null });
-    setPreview('');
-    
-  } catch (error) {
-    console.error('Error adding flower:', error);
-    alert('Failed to add flower: ' + error.message);
-  }
-};
+  
+    const fd = new FormData();
+    fd.append('name', formData.name);
+    fd.append('price', formData.price);
+    fd.append('image', formData.image);
+  
+    try {
+      const response = await fetch('/api/flowers', {
+        method: 'POST',
+        body: fd,
+      });
+  
+      if (!response.ok) throw new Error('Failed to create flower');
+  
+      const newFlower = await response.json();
+      setFlowers([...flowers, newFlower]);
+      setFormData({ name: '', price: '', image: null });
+      setPreview('');
+    } catch (error) {
+      console.error('Error adding flower:', error);
+      alert('Failed to add flower: ' + error.message);
+    }
+  };
+  
 
 // Image upload helper function
 async function uploadImage(file) {
@@ -150,7 +139,7 @@ async function uploadImage(file) {
                 />
               </div>
               <div className="form-group">
-                <label className="form-label">Price ($)</label>
+                <label className="form-label">Price (Nu.)</label>
                 <input
                   type="number"
                   name="price"
@@ -193,7 +182,7 @@ async function uploadImage(file) {
                   </div>
                   <div className="flower-details">
                     <h3 className="flower-name">{flower.name}</h3>
-                    <p className="flower-price">${flower.price.toFixed(2)}</p>
+                    <p className="flower-price">Nu. {flower.price.toFixed(2)}</p>
                     <button 
                       onClick={() => handleDeleteFlower(flower.id)}
                       className="delete-button"
@@ -228,7 +217,7 @@ async function uploadImage(file) {
                     <td>{order.user}</td>
                     <td>{order.flower}</td>
                     <td>{order.quantity}</td>
-                    <td>${order.total.toFixed(2)}</td>
+                    <td>Nu. {order.total.toFixed(2)}</td>
                     <td>{order.date}</td>
                   </tr>
                 ))}

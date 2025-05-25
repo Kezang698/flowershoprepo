@@ -1,7 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from '@/lib/prisma';
 import bcrypt from 'bcrypt';
-
-const prisma = new PrismaClient();
+import { cookies } from 'next/headers';
 
 export async function POST(request) {
   try {
@@ -16,10 +15,18 @@ export async function POST(request) {
 
     // Hardcoded admin credentials check
     if (email === 'kelz248@gmail.com' && password === '87654321') {
+      const cookieStore = cookies();
+      cookieStore.set('userId', 'admin', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 24 * 7 // 1 week
+      });
+
       return new Response(
         JSON.stringify({
           message: 'Admin login successful',
-          user: { email, role: 'ADMIN' }, // You can add other info if needed
+          user: { email, role: 'ADMIN' },
         }),
         { status: 200 }
       );
@@ -44,6 +51,15 @@ export async function POST(request) {
         { status: 401 }
       );
     }
+
+    // Set user cookie
+    const cookieStore = cookies();
+    cookieStore.set('userId', user.id, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 60 * 60 * 24 * 7 // 1 week
+    });
 
     // Authentication successful, return user info without password
     const { password: _password, ...userWithoutPassword } = user;
