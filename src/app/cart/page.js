@@ -129,7 +129,7 @@ export default function Cart() {
           <div className="empty-cart">
             <i className="fas fa-shopping-cart"></i>
             <h2>Your cart is empty</h2>
-            <p>Looks like you haven't added any items to your cart yet.</p>
+            <p>Looks like you haven&apos;t added any items to your cart yet.</p>
             <button 
               className="continue-shopping"
               onClick={() => router.push('/')}
