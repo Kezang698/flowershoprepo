@@ -1,5 +1,7 @@
 "use client";  // Add this line to mark this file as a client component
 import Head from 'next/head'
+import Image from 'next/image'
+import Link from 'next/link'
 import Header from '../components/Header';
 import { useEffect, useState } from 'react'
 
@@ -88,21 +90,13 @@ export default function Home() {
 
   return (
     <>
-      <Header products={products} />
-    
+      <Head>
         <title>Blossom Haven - Flower Boutique</title>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
 
-        {/* Bootstrap CSS */}
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-        />
-
-        {/* Your global CSS */}
-        <link rel="stylesheet" href="/global.css" />
-
+      <Header products={products} />
 
       {/* Home Section */}
       <section className="Home" id="Home">
@@ -110,7 +104,7 @@ export default function Home() {
           <h3>Fresh Flowers</h3>
           <span> Natural and beautiful Flowers </span>
           <p>Fresh and fragrant flowers for every occasion. Explore our collection now!</p>
-          <a 
+          <Link 
             href="#Products" 
             className="btn"
             onClick={(e) => {
@@ -122,7 +116,7 @@ export default function Home() {
             }}
           >
             <i className="fa fa-shopping-cart"></i> Shop Now
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -137,12 +131,12 @@ export default function Home() {
           <div className="content">
             <h3> Why choose us?</h3>
             <p>We offer the finest quality flowers and deliver them directly to your doorstep with care and attention. Enjoy the freshest flowers for all your special moments.</p>
-            <a 
+            <Link 
               href="/learn-more" 
               className="btn learn-more-btn"
             >
               <i className="fas fa-arrow-right"></i> Learn More
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -151,7 +145,13 @@ export default function Home() {
       <section className="icons-container">
         {['im1.jpeg', 'im2.jpg', 'im3.jpg', 'im4.jpeg'].map((src, idx) => (
           <div className="icons" key={idx}>
-            <img src={`/${src}`} alt="" />
+            <Image 
+              src={`/${src}`} 
+              alt={['Free Delivery', '10 days returns', 'offer & gifts', 'secure payments'][idx]}
+              width={100}
+              height={100}
+              style={{ objectFit: 'cover' }}
+            />
             <div className="info">
               <h3>{['Free Delivery', '10 days returns', 'offer & gifts', 'secure payments'][idx]}</h3>
               <span>{['On all orders', 'moneyback guarantee', 'On all orders', 'protected by paypal'][idx]}</span>
@@ -168,29 +168,27 @@ export default function Home() {
             <div className="box" key={product.id}>
               <span className="discount">-{product.discount}%</span>
               <div className="image">
-                <img src={product.image} alt={product.name} />
-                <div className="icons">
-                  <a 
-                    href="#" 
-                    className={`fas fa-heart ${wishlist.includes(product.id) ? 'active' : ''}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      toggleWishlist(product.id);
-                    }}
-                    title={wishlist.includes(product.id) ? "Remove from wishlist" : "Add to wishlist"}
-                  ></a>
-                  <a 
-                    href="#" 
-                    className="cart-btn"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      addToCart(product);
-                    }}
-                  >
-                    Add to cart
-                  </a>
-                  <a href="#" className="fas fa-share"></a>
-                </div>
+                <Image 
+                  src={product.image} 
+                  alt={product.name}
+                  width={300}
+                  height={300}
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
+              <div className="icons">
+                <button 
+                  className={`fas fa-heart ${wishlist.includes(product.id) ? 'active' : ''}`}
+                  onClick={() => toggleWishlist(product.id)}
+                  title={wishlist.includes(product.id) ? "Remove from wishlist" : "Add to wishlist"}
+                />
+                <button 
+                  className="cart-btn"
+                  onClick={() => addToCart(product)}
+                >
+                  Add to cart
+                </button>
+                <button className="fas fa-share" />
               </div>
               <div className="content">
                 <h3>{product.name}</h3>
@@ -203,7 +201,7 @@ export default function Home() {
 
       {/* Review Section */}
       <section className="Review" id="Review">
-        <h1 className="heading">Customer's<span> Review</span></h1>
+        <h1 className="heading">Customer&apos;s<span> Review</span></h1>
         <div className="review-stats">
           <div className="overall-rating">
             <h2>4.8</h2>
@@ -235,7 +233,20 @@ export default function Home() {
             <div className="box review-card" key={i}>
               <div className="review-header">
                 <div className="user">
-                  <img src={`/cus${i + 1}.jpg`} alt="" />
+                  <Image 
+                    src={`/cus${i + 1}.jpg`} 
+                    alt={[
+                      "Tenzin Chopel",
+                      "Sonam Dechen",
+                      "Kala",
+                      "Pema Choden",
+                      "Thinley Dema",
+                      "Melam Rigzang Dolma"
+                    ][i]}
+                    width={50}
+                    height={50}
+                    style={{ objectFit: 'cover' }}
+                  />
                   <div className="user-info">
                     <h3>{[
                       "Tenzin Chopel",
@@ -250,7 +261,7 @@ export default function Home() {
                 </div>
                 <div className="stars">
                   {[...Array(5)].map((_, j) => (
-                    <i key={j} className={`fas fa-star ${j < 4 ? 'active' : ''}`}></i>
+                    <i key={j} className={`fas fa-star${j < 4 ? ' active' : ''}`}></i>
                   ))}
                 </div>
               </div>
@@ -272,93 +283,6 @@ export default function Home() {
               </div>
             </div>
           ))}
-        </div>
-
-        <div className="write-review-container">
-          <h3>Share Your Experience</h3>
-          <form className="review-form" onSubmit={(e) => {
-            e.preventDefault();
-            // Add form submission logic here
-            alert('Thank you for your review!');
-          }}>
-            <div className="form-group">
-              <label>Your Rating</label>
-              <input type="hidden" id="ratingInput" name="rating" value="0" />
-              <div className="star-rating">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <i 
-                    key={star}
-                    className="fas fa-star"
-                    data-rating={star}
-                    onMouseEnter={(e) => {
-                      const rating = parseInt(e.target.dataset.rating);
-                      const stars = e.target.parentElement.children;
-                      const ratingInput = document.getElementById('ratingInput');
-                      if (ratingInput) {
-                        ratingInput.value = rating;
-                      }
-                      Array.from(stars).forEach((s, i) => {
-                        if (i < rating) {
-                          s.classList.add('active');
-                        } else {
-                          s.classList.remove('active');
-                        }
-                      });
-                    }}
-                    onMouseLeave={(e) => {
-                      const ratingInput = document.getElementById('ratingInput');
-                      const currentRating = ratingInput ? parseInt(ratingInput.value) : 0;
-                      const stars = e.target.parentElement.children;
-                      Array.from(stars).forEach((s, i) => {
-                        if (i < currentRating) {
-                          s.classList.add('active');
-                        } else {
-                          s.classList.remove('active');
-                        }
-                      });
-                    }}
-                    onClick={(e) => {
-                      const rating = parseInt(e.target.dataset.rating);
-                      const ratingInput = document.getElementById('ratingInput');
-                      if (ratingInput) {
-                        ratingInput.value = rating;
-                      }
-                      const stars = e.target.parentElement.children;
-                      Array.from(stars).forEach((s, i) => {
-                        if (i < rating) {
-                          s.classList.add('active');
-                        } else {
-                          s.classList.remove('active');
-                        }
-                      });
-                    }}
-                  ></i>
-                ))}
-              </div>
-            </div>
-            <div className="form-group">
-              <input type="text" placeholder="Your Name" required />
-            </div>
-            <div className="form-group">
-              <input type="email" placeholder="Your Email" required />
-            </div>
-            <div className="form-group">
-              <textarea 
-                placeholder="Share your experience with our flowers..." 
-                required
-                rows="4"
-              ></textarea>
-            </div>
-            <div className="form-group">
-              <label className="upload-label">
-                <i className="fas fa-camera"></i> Add Photos (Optional)
-                <input type="file" accept="image/*" multiple className="hidden" />
-              </label>
-            </div>
-            <button type="submit" className="submit-review-btn">
-              Submit Review
-            </button>
-          </form>
         </div>
       </section>
 

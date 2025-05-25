@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import UserNav from '../components/UserNav';
 
@@ -27,7 +28,7 @@ export default function Wishlist() {
       const items = products.filter(product => wishlistIds.includes(product.id));
       setWishlistItems(items);
     }
-  }, []);
+  }, [products]);
 
   const removeFromWishlist = (productId) => {
     const savedWishlist = localStorage.getItem('wishlist');
@@ -77,7 +78,13 @@ export default function Wishlist() {
             {wishlistItems.map((item) => (
               <div className="wishlist-item" key={item.id}>
                 <div className="item-image">
-                  <img src={item.image} alt={item.name} />
+                  <Image 
+                    src={item.image} 
+                    alt={item.name}
+                    width={200}
+                    height={200}
+                    style={{ objectFit: 'cover' }}
+                  />
                 </div>
                 <div className="item-details">
                   <h3>{item.name}</h3>

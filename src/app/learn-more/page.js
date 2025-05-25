@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function LearnMore() {
   useEffect(() => {
@@ -24,9 +26,13 @@ export default function LearnMore() {
           <div className="feature-grid">
             <div className="feature-card">
               <div className="feature-icon">
-                <img src="fresh.jpg" alt="Fresh Quality Flowers" className="feature-icon-img" />
-                {/* <i className="fas fa-flower"></i>
-                <i className="fas fa-leaf"></i> */}
+                <Image 
+                  src="/fresh.jpg" 
+                  alt="Fresh Quality Flowers" 
+                  width={100}
+                  height={100}
+                  className="feature-icon-img"
+                />
               </div>
               <h3>Fresh & Quality</h3>
               <p>We source our flowers from the finest local and international growers, ensuring the highest quality and freshness for every arrangement.</p>
@@ -34,7 +40,13 @@ export default function LearnMore() {
 
             <div className="feature-card">
               <div className="feature-icon">
-                <img src="/deliver.jpg" alt="Fast Delivery" className="feature-icon-img" />
+                <Image 
+                  src="/deliver.jpg" 
+                  alt="Fast Delivery" 
+                  width={100}
+                  height={100}
+                  className="feature-icon-img"
+                />
               </div>
               <h3>Fast Delivery</h3>
               <p>Our efficient delivery system ensures your flowers arrive fresh and on time, with careful handling throughout the journey.</p>
@@ -42,10 +54,16 @@ export default function LearnMore() {
 
             <div className="feature-card">
               <div className="feature-icon">
-                <img src="/care.jpg" alt="Customer Care" className="feature-icon-img" />
+                <Image 
+                  src="/care.jpg" 
+                  alt="Customer Care" 
+                  width={100}
+                  height={100}
+                  className="feature-icon-img"
+                />
               </div>
               <h3>Customer Care</h3>
-              <p>We're dedicated to providing exceptional service, with a team ready to assist you with any special requests or concerns.</p>
+              <p>We&apos;re dedicated to providing exceptional service, with a team ready to assist you with any special requests or concerns.</p>
             </div>
           </div>
 
@@ -67,14 +85,19 @@ export default function LearnMore() {
           <div className="testimonial-container">
             <div className="testimonial-header">
               <h2>What Our Customers Say</h2>
-              <p>Don't just take our word for it - hear from our satisfied customers</p>
+              <p>Don&apos;t just take our word for it - hear from our satisfied customers</p>
             </div>
             <div className="testimonial-grid">
               <div className="testimonial-card">
                 <div className="quote-icon"><i className="fas fa-quote-left"></i></div>
-                <p>"The flowers were absolutely stunning! They arrived fresh and lasted longer than expected. Will definitely order again!"</p>
+                <p>&quot;The flowers were absolutely stunning! They arrived fresh and lasted longer than expected. Will definitely order again!&quot;</p>
                 <div className="testimonial-author">
-                  <img src="/cus1.jpg" alt="Customer" />
+                  <Image 
+                    src="/cus1.jpg" 
+                    alt="Customer" 
+                    width={50}
+                    height={50}
+                  />
                   <div>
                     <h4>Tenzin Chophel</h4>
                     <span>Regular Customer</span>
@@ -84,9 +107,14 @@ export default function LearnMore() {
 
               <div className="testimonial-card">
                 <div className="quote-icon"><i className="fas fa-quote-left"></i></div>
-                <p>"Amazing service! The team went above and beyond to create the perfect arrangement for my mother's birthday."</p>
+                <p>&quot;Amazing service! The team went above and beyond to create the perfect arrangement for my mother&apos;s birthday.&quot;</p>
                 <div className="testimonial-author">
-                  <img src="/cus2.jpg" alt="Customer" />
+                  <Image 
+                    src="/cus2.jpg" 
+                    alt="Customer" 
+                    width={50}
+                    height={50}
+                  />
                   <div>
                     <h4>Sonam Dechen Yangzom</h4>
                     <span>Happy Customer</span>
@@ -96,16 +124,21 @@ export default function LearnMore() {
             </div>
           </div>
 
-          {/* Additional Content */}
           <div className="about-story">
             <h2>Our Story</h2>
             <div className="story-content">
               <div className="story-text">
                 <p>Founded in 2014, Blossom Shop began with a simple passion for bringing joy through beautiful flowers. What started as a small local shop has grown into a beloved destination for floral arrangements, serving thousands of happy customers.</p>
-                <p>Our commitment to quality, creativity, and customer satisfaction has remained unchanged throughout our journey. We believe that every flower tells a story, and we're here to help you tell yours.</p>
+                <p>Our commitment to quality, creativity, and customer satisfaction has remained unchanged throughout our journey. We believe that every flower tells a story, and we&apos;re here to help you tell yours.</p>
               </div>
               <div className="story-image">
-                <img src="/story.jpg" alt="Our Story" />
+                <Image 
+                  src="/story.jpg" 
+                  alt="Our Story" 
+                  width={400}
+                  height={300}
+                  style={{ objectFit: 'cover' }}
+                />
               </div>
             </div>
           </div>
@@ -113,9 +146,9 @@ export default function LearnMore() {
           <div className="cta-section">
             <h2>Ready to Experience the Blossom Difference?</h2>
             <p>Explore our collection and find the perfect arrangement for your special moments.</p>
-            <a href="/#Products" className="btn">
+            <Link href="/#Products" className="btn">
               <i className="fas fa-shopping-cart"></i> Shop Now
-            </a>
+            </Link>
           </div>
         </div>
       </section>

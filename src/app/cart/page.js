@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import UserNav from '../components/UserNav';
 import { FaTrash, FaShoppingCart, FaLock, FaTruck, FaTag } from 'react-icons/fa';
+import Image from 'next/image';
 
 export default function Cart() {
   const router = useRouter();
@@ -152,7 +153,13 @@ export default function Cart() {
                     tabIndex={0}
                     aria-label={`View ${item.name} details`}
                   >
-                    <img src={item.image} alt={item.name} />
+                    <Image 
+                      src={item.image} 
+                      alt={item.name}
+                      width={100}
+                      height={100}
+                      style={{ objectFit: 'cover' }}
+                    />
                     <div className="image-overlay">
                       <span>View Details</span>
                     </div>

@@ -40,7 +40,7 @@ export default function CheckoutSuccess() {
           </div>
 
           <div className="order-info">
-            <h2>What's Next?</h2>
+            <h2>What&apos;s Next?</h2>
             <ul>
               <li>You will receive an order confirmation email shortly.</li>
               <li>We will process your order and prepare it for shipping.</li>

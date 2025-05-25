@@ -6,7 +6,12 @@
 @tailwind utilities;
 
 :root{
-    --pink: #e84393; 
+    --pink: #e84393;
+    --pink-dark: #d63384;
+    --pink-light: #ffecf6;
+    --primary: var(--pink);
+    --primary-dark: var(--pink-dark);
+    --primary-light: var(--pink-light);
 }
 
 /* Global Reset */
@@ -73,12 +78,13 @@ header {
     z-index: 1000;
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
     gap: 1rem;
+    border-bottom: 2px solid var(--pink);
 }
   
 header .logo {
     font-size: 3rem;
     font-weight: bold;
-    color: #333;
+    color: var(--pink) !important;
     white-space: nowrap;
 }
   
@@ -92,6 +98,10 @@ header .navbar {
 header .navbar a {
     font-size: 1.8rem;
     color: #666;
+}
+  
+header .navbar a.active, header .navbar a:hover, .nav-link:hover {
+    color: var(--pink) !important;
 }
   
 header .icons {
@@ -127,11 +137,11 @@ header .menu-icon {
     color: #333;
     padding: 1rem;
     margin: 2rem 0;
-    background: rgba(255, 51, 153, .05);
+    background: var(--pink-light);
 }
 
 .heading span {
-    color: var(--pink);
+    color: var(--pink) !important;
 }
 
 /* Blinking Animation */
@@ -186,7 +196,7 @@ header .menu-icon {
 .btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(232, 67, 147, 0.4);
-    background: #d63384;
+    background: var(--pink-dark);
 }
 
 .btn:hover i {
@@ -450,7 +460,7 @@ header #toggler {
     left: 1rem;
     padding: 7rem 1rem;
     font-size: 2rem;
-    color: var(--pink);
+    color: var(--pink) !important;
     background: rgba(255, 51, 153, .05);
     z-index: 1;
     border-radius: .5rem;
@@ -471,16 +481,56 @@ header #toggler {
     transform: scale(1.1);
 }
 
-.Products .box-container .box .image .icons {
-    position: absolute;
-    bottom: -7rem;
-    left: 0;
-    right: 0;
-    display: flex;
+.Products .box-container .box .icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 1.2rem 0 0 0;
 }
 
-.Products .box-container .box:hover .image .icons {
-    bottom: 0;
+.Products .box-container .box .icons button,
+.Products .box-container .box .icons .cart-btn {
+  background: var(--pink);
+  color: #fff;
+  border: none;
+  border-radius: 2rem;
+  padding: 1rem 2.5rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.Products .box-container .box .icons button.fa-heart {
+  background: #fff;
+  color: var(--pink);
+  border: 1.5px solid var(--pink);
+}
+
+.Products .box-container .box .icons button.fa-heart.active {
+  background: var(--pink);
+  color: #fff;
+}
+
+.Products .box-container .box .icons button:hover,
+.Products .box-container .box .icons .cart-btn:hover {
+  background: var(--pink-dark);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .Products .box-container .box .icons {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .Products .box-container .box .icons button,
+  .Products .box-container .box .icons .cart-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 .Products .box-container .box .image .icons a {
@@ -501,7 +551,7 @@ header #toggler {
 }
 
 .Products .box-container .box .image .icons a.fa-heart.active {
-    color: #e84393;
+    color: var(--pink);
     animation: heartBeat 0.3s ease-in-out;
 }
 
@@ -523,7 +573,7 @@ header #toggler {
 }
 
 .Products .box-container .box .image .icons a.cart-btn:hover {
-    background: #d63384;
+    background: var(--pink-dark);
 }
 
 /* Add to cart animation */
@@ -597,7 +647,7 @@ header #toggler {
 
 .Products .box-container .box .content .price {
     font-size: 2.5rem;
-    color: var(--pink);
+    color: var(--pink) !important;
     font-weight: bolder;
     padding-top: 1rem;
 }
@@ -630,11 +680,12 @@ header #toggler {
     bottom: 3rem;
     right: 3rem;
     font-size: 6rem;
-    color: #e84393;
+    color: var(--pink);
+    opacity: 0.2;
 }
 
 .Review .box-container .box .stars {
-    color: #e84393;
+    color: var(--pink);
 }
 
 .Review .box-container .box p {
@@ -858,7 +909,7 @@ header #toggler {
 }
 
 .submit-review-btn:hover {
-  background: #d63384;
+  background: var(--pink-dark);
   transform: translateY(-2px);
 }
 
@@ -964,7 +1015,7 @@ header #toggler {
 }
 
 .submit-btn:hover {
-  background: #d63384;
+  background: var(--pink-dark);
   transform: translateY(-2px);
 }
 
@@ -1099,7 +1150,7 @@ header #toggler {
 }
 
 .newsletter-form button:hover {
-  background: #d63384;
+  background: var(--pink-dark);
 }
 
 /* Social Links Styles */
@@ -1287,7 +1338,7 @@ header #toggler {
 }
 
 .app-button:hover {
-  background: var(--pink);
+  background: var(--pink-dark);
   transform: translateY(-2px);
 }
 
@@ -2089,7 +2140,7 @@ header #toggler {
 }
 
 .add-to-cart-btn:hover {
-  background: #d63384;
+  background: var(--pink-dark);
 }
 
 /* Cart Page Specific Styles */
@@ -2180,7 +2231,7 @@ header #toggler {
 }
 
 .checkout-btn:hover {
-  background: #d63384;
+  background: var(--pink-dark);
 }
 
 .continue-shopping {
@@ -2195,7 +2246,7 @@ header #toggler {
 }
 
 .continue-shopping:hover {
-  color: var(--pink);
+  color: var(--pink-dark);
 }
 
 /* Responsive Styles */
@@ -2525,7 +2576,7 @@ header #toggler {
 
 .view-wishlist:hover {
   background: #fff;
-  color: var(--pink);
+  color: var(--pink-dark);
   transform: translateY(-2px);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -2673,7 +2724,7 @@ header #toggler {
 }
 
 .nav-item.active:hover {
-  background: #d63384;
+  background: var(--pink-dark);
 }
 
 .nav-item .badge {
@@ -2780,7 +2831,7 @@ header #toggler {
 }
 
 .auth-btn:hover {
-  background: #d63384;
+  background: var(--pink-dark);
   transform: translateY(-2px);
 }
 
@@ -3161,7 +3212,7 @@ header #toggler {
 }
 
 .apply-coupon-btn:not(:disabled):hover {
-  background: #d63384;
+  background: var(--pink-dark);
 }
 
 .apply-coupon-btn:disabled {
@@ -3248,7 +3299,7 @@ header #toggler {
 }
 
 .checkout-btn:not(:disabled):hover {
-  background: #d63384;
+  background: var(--pink-dark);
   transform: translateY(-2px);
 }
 

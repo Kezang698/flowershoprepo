@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import '../styles/LoginPage.css'; // Your CSS file
 
 export default function LoginPage() {
@@ -86,10 +87,10 @@ export default function LoginPage() {
         </form>
 
         <p className="login-footer">
-          Don't have an account?{' '}
-          <a href="/register" className="login-link">
+          Don&apos;t have an account?{' '}
+          <Link href="/register" className="login-link">
             Register
-          </a>
+          </Link>
         </p>
       </div>
     </div>

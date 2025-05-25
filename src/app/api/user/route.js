@@ -3,8 +3,8 @@ import { cookies } from 'next/headers';
 
 export async function GET() {
   try {
-    const cookieStore = cookies();
-    const userId = cookieStore.get('userId')?.value;
+    const cookieStore = await cookies();
+    const userId = (await cookieStore.get('userId'))?.value;
 
     if (!userId || userId === 'admin') {
       return new Response(JSON.stringify({ user: null }), { status: 200 });

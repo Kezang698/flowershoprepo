@@ -15,8 +15,8 @@ export async function POST(request) {
 
     // Hardcoded admin credentials check
     if (email === 'kelz248@gmail.com' && password === '87654321') {
-      const cookieStore = cookies();
-      cookieStore.set('userId', 'admin', {
+      const cookieStore = await cookies();
+      await cookieStore.set('userId', 'admin', {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
@@ -53,8 +53,8 @@ export async function POST(request) {
     }
 
     // Set user cookie
-    const cookieStore = cookies();
-    cookieStore.set('userId', user.id, {
+    const cookieStore = await cookies();
+    await cookieStore.set('userId', user.id, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
